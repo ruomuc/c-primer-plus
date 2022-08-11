@@ -1,0 +1,1 @@
+int judge(int *(*p)(const char *));

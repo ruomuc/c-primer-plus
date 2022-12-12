@@ -5,13 +5,11 @@
 #include <ctime>
 #include <cctype>
 #include <vector>
+#include <fstream>
 using std::string;
 using std::vector;
-const vector<string> wordlist = {"apiary", "beetle", "cereal",
-                                 "danger", "ensign", "florid", "garage", "health", "insult",
-                                 "jackal", "keeper", "loaner", "manage", "nonce", "onset",
-                                 "plaid", "quilt", "remote", "stolid", "train", "useful",
-                                 "valid", "whence", "xenon", "yearn", "zippy"};
+
+const int WORD_NUM = 26;
 
 int main()
 {
@@ -19,6 +17,26 @@ int main()
   using std::cout;
   using std::endl;
   using std::tolower;
+
+  // 读取文件中的单词
+  std::ifstream fin;
+  fin.open("test.txt", std::ifstream::in);
+  if (!fin.is_open())
+  {
+    std::cout << "Cant open test.txt. " << std::endl;
+    exit(1);
+  }
+  string word;
+  std::vector<string> wordlist;
+  if (fin.good())
+  {
+    while (fin >> word)
+    {
+      wordlist.push_back(word);
+    }
+  }
+  fin.close();
+
   std::srand(std::time(0));
   char play;
   cout << "Will you play a word game? <y/n> ";
